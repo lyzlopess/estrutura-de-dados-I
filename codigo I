@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 10
+
+typedef struct {
+    int data[MAX_SIZE];
+    int top;
+} IntStack;
+
+// Inicializa a pilha
+void initialize(IntStack *stack) {
+    stack->top = -1;
+}
+
+// Verifica se a pilha está vazia
+int isEmpty(const IntStack *stack) {
+    return stack->top == -1;
+}
+
+// Verifica se a pilha está cheia
+int isFull(const IntStack *stack) {
+    return stack->top == MAX_SIZE - 1;
+}
+
+// Empilha um número inteiro
+int push(IntStack *stack, int value) {
+    if (isFull(stack)) {
+        fprintf(stderr, "Erro: Pilha cheia\n");
+        return 0; // Operação mal-sucedida
+    }
+
+    stack->data[++stack->top] = value;
+    return 1; // Operação bem-sucedida
+}
+
+// Imprime os elementos da pilha
+void printStack(const IntStack *stack) {
+    if (isEmpty(stack)) {
+        printf("Pilha vazia\n");
+        return;
+    }
+
+    printf("Elementos da pilha: ");
+    for (int i = 0; i <= stack->top; ++i) {
+        printf("%d ", stack->data[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    IntStack stack;
+    initialize(&stack);
+
+    // Empilha alguns números inteiros
+    if (push(&stack, 10) && push(&stack, 20) && push(&stack, 30)) {
+        // Imprime os elementos da pilha se as operações de push forem bem-sucedidas
+        printStack(&stack);
+    }
+
+    return 0;
+}
